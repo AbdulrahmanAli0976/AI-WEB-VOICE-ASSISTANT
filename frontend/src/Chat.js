@@ -216,7 +216,7 @@ const Chat = () => {
         }
         setIsClearing(true);
         try {
-            const response = await fetch('http://localhost:5000/clear', {
+            const response = await fetch('https://ai-web-voice-assistant.onrender.com/clear', {
                 method: 'POST',
             });
             if(response.ok) {
