@@ -1,0 +1,94 @@
+/* General App Styling */
+.App {
+  text-align: center;
+  /* background-color will be set by inline style from React */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: #333;
+}
+
+.App.dark-mode {
+  color: #f1f1f1;
+}
+
+.App-header {
+  background-color: #fff;
+  padding: 20px;
+  border-bottom: 1px solid #ddd;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  position: relative; /* For positioning the toggle button */
+}
+
+.App.dark-mode .App-header {
+  background-color: #333;
+  border-bottom-color: #555;
+}
+
+.App-header h1 {
+  margin: 0;
+  font-size: 1.5em;
+  color: #1a73e8; /* Google Blue */
+}
+
+.App.dark-mode .App-header h1 {
+  color: #90caf9; /* Lighter blue for dark mode */
+}
+
+.dark-mode-toggle {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  background-color: #f0f0f0;
+  color: #333;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.App.dark-mode .dark-mode-toggle {
+  background-color: #555;
+  color: #f1f1f1;
+}
+
+.dark-mode-toggle:hover {
+  background-color: #e0e0e0;
+}
+
+.App.dark-mode .dark-mode-toggle:hover {
+  background-color: #666;
+}
+
+main {
+  padding: 20px;
+  width: 100%;
+  max-width: 800px;
+  box-sizing: border-box;
+}
+
+/* --- Responsive Design for Mobile --- */
+@media screen and (max-width: 600px) {
+  .App-header h1 {
+    font-size: 1.2em;
+  }
+
+  .dark-mode-toggle {
+    top: 5px;
+    right: 5px;
+    padding: 6px 12px;
+  }
+
+  main {
+    padding: 10px;
+  }
+}

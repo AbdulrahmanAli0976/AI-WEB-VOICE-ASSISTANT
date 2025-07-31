@@ -1,0 +1,124 @@
+/* Combined and refined CSS from your inputs */
+body {
+    /* Gradient background from your second style block */
+    background: linear-gradient(to bottom right, #1d2b64, #f8cdda);
+    color: #fff; /* White text for gradient background */
+    font-family: 'Inter', 'Segoe UI', sans-serif; /* Prioritize Inter first, then Segoe UI */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 60px;
+    margin: 0; /* Ensure no default body margin */
+    min-height: 100vh; /* Ensure body takes full viewport height */
+}
+
+.container {
+    background-color: rgba(255, 255, 255, 0.08); /* Semi-transparent white */
+    border-radius: 15px;
+    padding: 40px 30px;
+    max-width: 600px;
+    width: 90%;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    backdrop-filter: blur(10px); /* Frosted glass effect */
+    margin-bottom: 30px; /* Space below the main container */
+}
+
+.btn-custom {
+    background-color: #ffffff; /* White button background */
+    color: #1d2b64; /* Dark blue text */
+    font-weight: 600;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 30px; /* Pill-shaped buttons */
+    transition: 0.3s ease;
+    margin: 5px; /* Spacing between buttons */
+}
+
+.btn-custom:hover {
+    background-color: #f8cdda; /* Lighter pink on hover */
+    color: #1d2b64;
+}
+
+.response-box {
+    margin-top: 20px;
+    background-color: rgba(255, 255, 255, 0.15);
+    padding: 15px;
+    border-radius: 10px;
+    min-height: 50px; /* Reduced min-height as chatbox will hold main history */
+    color: #fefefe;
+    font-size: 1.1rem;
+    text-align: center; /* Center initial messages like "I'm listening..." */
+}
+
+.mic-icon {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+}
+
+.mic-icon:hover {
+    transform: scale(1.1);
+}
+
+/* --- Chatbox Specific Styles --- */
+#chatbox {
+    margin-top: 20px;
+    max-height: 300px; /* Limit height and make it scrollable */
+    overflow-y: auto;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    padding: 10px;
+    display: flex; /* Use flexbox for message alignment */
+    flex-direction: column;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.message {
+    padding: 10px 15px;
+    margin: 8px;
+    max-width: 75%;
+    border-radius: 20px;
+    font-size: 1rem; /* Slightly smaller for chat messages */
+    line-height: 1.4;
+    word-wrap: break-word; /* Ensure long words wrap */
+}
+
+.user-message {
+    background-color: #daf1ff; /* Light blue for user messages */
+    color: #333; /* Dark text for light background */
+    align-self: flex-end; /* Align to the right */
+    border-bottom-right-radius: 5px; /* Slightly different corner for chat bubble look */
+}
+
+.bot-message {
+    background-color: #f0f0f0; /* Light gray for bot messages */
+    color: #333; /* Dark text for light background */
+    align-self: flex-start; /* Align to the left */
+    border-bottom-left-radius: 5px; /* Slightly different corner for chat bubble look */
+}
+
+#typing-indicator {
+    display: none; /* Hidden by default */
+    font-size: 0.9rem;
+    color: #ccc;
+    margin-left: 10px; /* Indent a bit */
+    margin-top: 5px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    body {
+        padding-top: 30px;
+    }
+    .container {
+        padding: 20px;
+    }
+    .btn-custom {
+        padding: 10px 20px;
+        font-size: 1rem;
+    }
+    .mic-icon {
+        font-size: 2.5rem;
+    }
+}
