@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>AI Web Voice Assistant</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+    <div class="container text-center">
+        <div class="mic-icon" id="mic">&#127908;</div> <h2>Talk to your AI Assistant</h2>
+        <button class="btn btn-custom mt-3" onclick="startListening()">Start Speaking</button>
+        <button class="btn btn-custom mt-3" onclick="clearChat()">Clear Chat</button>
+
+        <div class="response-box mt-4" id="response">Click 'Start Speaking' or the mic icon to begin!</div>
+
+        <div id="chatbox">
+            </div>
+
+        <div id="typing-indicator">AI is typing...</div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
