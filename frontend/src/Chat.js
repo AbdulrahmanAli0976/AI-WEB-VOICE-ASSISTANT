@@ -176,12 +176,18 @@ const Chat = () => {
             // Add a new AI message placeholder
             setMessages(prevMessages => [...prevMessages, { text: '', sender: 'ai' }]);
 
+            let fullResponse = '';
             while (true) {
                 const { done, value } = await reader.read();
-                if (done) break;
+                if (done) {
+                    // Speak the full response at once
+                    speak(fullResponse);
+                    break;
+                }
 
                 const chunk = decoder.decode(value, { stream: true });
                 receivedText += chunk;
+                fullResponse += chunk; // Accumulate the full response
 
                 if (!firstChunkReceived) {
                     setIsAiTyping(false); // Hide typing indicator once first chunk arrives
@@ -194,9 +200,6 @@ const Chat = () => {
                     newMessages[newMessages.length - 1].text = receivedText;
                     return newMessages;
                 });
-
-                // Speak the new chunk after cleaning Markdown
-                speak(chunk);
             }
 
         } catch (error) {

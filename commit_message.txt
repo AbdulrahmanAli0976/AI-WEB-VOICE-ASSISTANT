@@ -1,1 +1,1 @@
-fix: Correct backend URL for deployed application
+fix: Accumulate full response before speaking
