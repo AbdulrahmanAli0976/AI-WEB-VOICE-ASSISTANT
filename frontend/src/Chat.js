@@ -156,7 +156,7 @@ const Chat = () => {
         setIsAiTyping(true); // Set AI typing indicator to true
 
         try {
-            const response = await fetch('http://localhost:5000/ask', {
+            const response = await fetch('https://ai-web-voice-assistant.onrender.com/ask', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

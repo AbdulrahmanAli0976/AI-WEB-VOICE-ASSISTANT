@@ -1,1 +1,1 @@
-Rename requirement.txt to requirements.txt
+fix: Correct backend URL for deployed application
