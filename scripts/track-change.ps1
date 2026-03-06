@@ -48,10 +48,21 @@ function Ensure-TrackingFiles {
 }
 
 function Get-ChangedFiles {
-    $statusLines = git status --porcelain
+    $rawStatus = git status --porcelain
+    if ($rawStatus -is [string]) {
+        $statusLines = $rawStatus -split "`r?`n"
+    }
+    else {
+        $statusLines = @($rawStatus)
+    }
+
     $files = @()
 
     foreach ($line in $statusLines) {
+        if (-not $line) {
+            continue
+        }
+
         if ($line.Length -lt 4) {
             continue
         }

@@ -16,3 +16,11 @@ Reason: Architecture output used nested arrays and displayed System.Object[] ins
 Impact: ARCHITECTURE_STATE now records accurate structure, file distribution, endpoint list, and API targets.
 Next Step: Begin issue #1 fix: isolate chat state per user/session in backend.
 
+[2026-03-06 17:34]
+Action Type: Fix
+Summary: fix changed-file parsing in tracking logs
+Files Modified: scripts/track-change.ps1docs/CHANGELOG.md docs/ARCHITECTURE_STATE.md docs/PROJECT_LOG.md
+Reason: Changed file extraction could merge multiple paths into one token in changelog/project log.
+Impact: Tracking entries now list modified files correctly and consistently.
+Next Step: Begin issue #1 fix: isolate chat state per user/session in backend.
+
