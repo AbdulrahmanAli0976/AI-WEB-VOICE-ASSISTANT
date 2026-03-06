@@ -155,11 +155,14 @@ function Update-Changelog {
 function Update-ArchitectureState {
     param([string]$Timestamp)
 
-    $trackedFiles = git ls-files
-    $backendCount = ($trackedFiles | Where-Object { $_ -like "backend/*" }).Count
-    $frontendCount = ($trackedFiles | Where-Object { $_ -like "frontend/*" }).Count
-    $docsCount = ($trackedFiles | Where-Object { $_ -like "docs/*" }).Count
-    $scriptsCount = ($trackedFiles | Where-Object { $_ -like "scripts/*" -or $_ -like ".githooks/*" }).Count
+    $trackedFiles = @(git ls-files)
+    $untrackedFiles = @(git ls-files --others --exclude-standard)
+    $allFiles = @($trackedFiles + $untrackedFiles) | Sort-Object -Unique
+
+    $backendCount = ($allFiles | Where-Object { $_ -like "backend/*" }).Count
+    $frontendCount = ($allFiles | Where-Object { $_ -like "frontend/*" }).Count
+    $docsCount = ($allFiles | Where-Object { $_ -like "docs/*" }).Count
+    $scriptsCount = ($allFiles | Where-Object { $_ -like "scripts/*" -or $_ -like ".githooks/*" }).Count
 
     $endpoints = Get-BackendEndpoints
     if (-not $endpoints) {
@@ -171,44 +174,46 @@ function Update-ArchitectureState {
         $apiTargets = @("Not detected")
     }
 
-    $topLevel = @()
+    $topLevel = New-Object System.Collections.Generic.List[string]
     foreach ($name in @("backend", "frontend", "docs", "scripts", ".githooks")) {
         if (Test-Path $name) {
-            $topLevel += "- $name/"
+            $topLevel.Add("- $name/")
         }
     }
-    $topLevel += (git ls-files | Where-Object { $_ -notmatch "/" } | ForEach-Object { "- $_" })
+    $rootFiles = @($allFiles | Where-Object { $_ -notmatch "/" } | ForEach-Object { "- $_" })
+    foreach ($rootFile in $rootFiles) {
+        $topLevel.Add($rootFile)
+    }
 
-    $endpointLines = $endpoints | ForEach-Object { "- $_" }
-    $apiTargetLines = $apiTargets | ForEach-Object { "- $_" }
+    $endpointLines = @($endpoints | ForEach-Object { "- $_" })
+    $apiTargetLines = @($apiTargets | ForEach-Object { "- $_" })
 
-    $content = @(
-        "# Architecture State",
-        "",
-        "Last Updated: $Timestamp",
-        "",
-        "## Current System Structure",
-        "",
-        "### Top Level",
-        $topLevel,
-        "",
-        "### File Distribution",
-        "- backend files: $backendCount",
-        "- frontend files: $frontendCount",
-        "- docs files: $docsCount",
-        "- automation files: $scriptsCount",
-        "",
-        "## Backend API Endpoints",
-        $endpointLines,
-        "",
-        "## Frontend API Targets",
-        $apiTargetLines,
-        "",
-        "## Operational Workflow",
-        "- Session reconstruction is driven by docs/PROJECT_LOG.md, docs/ARCHITECTURE_STATE.md, docs/CHANGELOG.md.",
-        "- Change tracking, commit, and push are handled by scripts/track-change.ps1.",
-        "- Git hooks enforce Conventional Commits and tracking-doc inclusion."
-    )
+    $content = New-Object System.Collections.Generic.List[string]
+    $content.Add("# Architecture State")
+    $content.Add("")
+    $content.Add("Last Updated: $Timestamp")
+    $content.Add("")
+    $content.Add("## Current System Structure")
+    $content.Add("")
+    $content.Add("### Top Level")
+    foreach ($line in $topLevel) { $content.Add($line) }
+    $content.Add("")
+    $content.Add("### File Distribution")
+    $content.Add("- backend files: $backendCount")
+    $content.Add("- frontend files: $frontendCount")
+    $content.Add("- docs files: $docsCount")
+    $content.Add("- automation files: $scriptsCount")
+    $content.Add("")
+    $content.Add("## Backend API Endpoints")
+    foreach ($line in $endpointLines) { $content.Add($line) }
+    $content.Add("")
+    $content.Add("## Frontend API Targets")
+    foreach ($line in $apiTargetLines) { $content.Add($line) }
+    $content.Add("")
+    $content.Add("## Operational Workflow")
+    $content.Add("- Session reconstruction is driven by docs/PROJECT_LOG.md, docs/ARCHITECTURE_STATE.md, docs/CHANGELOG.md.")
+    $content.Add("- Change tracking, commit, and push are handled by scripts/track-change.ps1.")
+    $content.Add("- Git hooks enforce Conventional Commits and tracking-doc inclusion.")
 
     Set-Content -Path "docs/ARCHITECTURE_STATE.md" -Value ($content -join "`n")
 }

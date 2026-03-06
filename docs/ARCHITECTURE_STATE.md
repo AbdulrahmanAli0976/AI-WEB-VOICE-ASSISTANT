@@ -1,23 +1,34 @@
 # Architecture State
 
-Last Updated: 2026-03-06 17:32
+Last Updated: 2026-03-06 17:33
 
 ## Current System Structure
 
 ### Top Level
-System.Object[]
+- backend/
+- frontend/
+- docs/
+- scripts/
+- .githooks/
+- .gitignore
+- AGENTS.md
+- commit_message.txt
+- README.md
 
 ### File Distribution
 - backend files: 4
 - frontend files: 21
-- docs files: 0
-- automation files: 0
+- docs files: 3
+- automation files: 5
 
 ## Backend API Endpoints
-System.Object[]
+- / [GET]
+- /ask [POST]
+- /clear [POST]
 
 ## Frontend API Targets
-System.Object[]
+- https://ai-web-voice-assistant.onrender.com/ask
+- https://ai-web-voice-assistant.onrender.com/clear
 
 ## Operational Workflow
 - Session reconstruction is driven by docs/PROJECT_LOG.md, docs/ARCHITECTURE_STATE.md, docs/CHANGELOG.md.
