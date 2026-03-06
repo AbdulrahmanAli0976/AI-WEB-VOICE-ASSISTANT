@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+.env
+.venv/
+venv/
+backend/venv/
+backend/__pycache__/
+
+# Node
+node_modules/
+dist/
+npm-debug.log
+frontend/node_modules/
+
+# IDE / Editor
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Ignored Project Folders
+frontend-old/
+project_documentation/

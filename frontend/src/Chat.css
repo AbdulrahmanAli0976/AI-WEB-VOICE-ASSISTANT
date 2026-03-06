@@ -1,0 +1,309 @@
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    height: 70vh;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #fff;
+}
+
+.App.dark-mode .chat-container {
+    background-color: #444;
+    border-color: #666;
+}
+
+.message-list {
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.message-wrapper {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+    max-width: 70%;
+}
+
+.message-wrapper.user {
+    align-self: flex-end;
+    flex-direction: row-reverse; /* User avatar on the right */
+}
+
+.message-wrapper.ai {
+    align-self: flex-start;
+    flex-direction: row; /* AI avatar on the left */
+}
+
+.avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #ccc; /* Default avatar background */
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8em;
+    color: #fff;
+}
+
+.user-avatar {
+    background-color: #1a73e8; /* Blue for user */
+    /* You can use an image here: background-image: url('./user-icon.png'); background-size: cover; */
+}
+
+.ai-avatar {
+    background-color: #4CAF50; /* Green for AI */
+    /* You can use an image here: background-image: url('./ai-icon.png'); background-size: cover; */
+}
+
+.message {
+    padding: 10px 15px;
+    border-radius: 18px;
+    word-wrap: break-word;
+    flex-grow: 1;
+    position: relative; /* For positioning the copy button */
+}
+
+.message.user {
+    background-color: #dcf8c6;
+}
+
+.App.dark-mode .message.user {
+    background-color: #6a9955;
+}
+
+.message.ai {
+    background-color: #f1f0f0;
+}
+
+.App.dark-mode .message.ai {
+    background-color: #555;
+    color: #f1f1f1;
+}
+
+.message.system {
+    background-color: #e0f7fa; /* Light blue for system messages */
+    align-self: center;
+    font-style: italic;
+    color: #555;
+    max-width: 100%; /* System messages can take full width */
+}
+
+.App.dark-mode .message.system {
+    background-color: #3a4a5a;
+    color: #bbb;
+}
+
+.copy-button {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.8em;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+}
+
+.copy-button:hover {
+    opacity: 1;
+}
+
+.message-form {
+    display: flex;
+    padding: 10px;
+    border-top: 1px solid #ccc;
+}
+
+.App.dark-mode .message-form {
+    border-top-color: #666;
+}
+
+.message-form input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    margin-right: 10px;
+}
+
+.App.dark-mode .message-form input {
+    background-color: #666;
+    border-color: #888;
+    color: #f1f1f1;
+}
+
+.message-form button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #1a73e8;
+    color: white;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Smooth transition for hover */
+}
+
+.message-form button:hover:not(:disabled) {
+    background-color: #155bb5; /* Darker blue on hover */
+}
+
+.message-form button:disabled {
+    background-color: #a0c3ff;
+}
+
+.clear-chat-button {
+    margin: 10px auto;
+    padding: 8px 16px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    cursor: pointer;
+    background-color: #f1f0f0;
+    transition: background-color 0.3s ease; /* Smooth transition for hover */
+}
+
+.clear-chat-button:hover {
+    background-color: #e0e0e0; /* Darker grey on hover */
+}
+
+.microphone-button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #4CAF50; /* Green */
+    color: white;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: background-color 0.3s ease; /* Smooth transition for hover */
+}
+
+.microphone-button:hover:not(:disabled) {
+    background-color: #45a049; /* Darker green on hover */
+}
+
+.microphone-button:disabled {
+    background-color: #9ccc65; /* Lighter green when disabled */
+}
+
+/* AI Typing Indicator */
+.typing-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 15px;
+    border-radius: 18px;
+    max-width: 70px; /* Adjust as needed */
+    background-color: #f1f0f0;
+    align-self: flex-start;
+}
+
+.App.dark-mode .typing-indicator {
+    background-color: #555;
+}
+
+.typing-indicator .dot {
+    width: 8px;
+    height: 8px;
+    background-color: #999;
+    border-radius: 50%;
+    margin: 0 2px;
+    animation: bounce 1.4s infinite ease-in-out both;
+}
+
+.App.dark-mode .typing-indicator .dot {
+    background-color: #bbb;
+}
+
+.typing-indicator .dot:nth-child(1) {
+    animation-delay: -0.32s;
+}
+
+.typing-indicator .dot:nth-child(2) {
+    animation-delay: -0.16s;
+}
+
+@keyframes bounce {
+    0%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-8px);
+    }
+}
+
+/* Voice Visualizer */
+.voice-visualizer {
+    display: flex;
+    align-items: center;
+    height: 20px;
+    margin-left: 15px;
+}
+
+.voice-visualizer .bar {
+    width: 4px;
+    height: 2px;
+    background-color: #1a73e8; /* Google Blue */
+    margin: 0 1px;
+    animation: waveform 1.2s infinite ease-in-out;
+    transform-origin: bottom;
+}
+
+.voice-visualizer .bar:nth-child(1) { animation-delay: -1.2s; }
+.voice-visualizer .bar:nth-child(2) { animation-delay: -1.1s; }
+.voice-visualizer .bar:nth-child(3) { animation-delay: -1.0s; }
+.voice-visualizer .bar:nth-child(4) { animation-delay: -0.9s; }
+.voice-visualizer .bar:nth-child(5) { animation-delay: -0.8s; }
+
+@keyframes waveform {
+    0%, 100% {
+        transform: scaleY(1);
+    }
+    25% {
+        transform: scaleY(3);
+    }
+    50% {
+        transform: scaleY(0.5);
+    }
+    75% {
+        transform: scaleY(2);
+    }
+}
+
+
+/* --- Responsive Design for Mobile --- */
+@media screen and (max-width: 600px) {
+    .message-list {
+        padding: 10px;
+    }
+
+    .message-wrapper {
+        max-width: 95%; /* Allow messages to take up more space */
+    }
+
+    .message-form {
+        flex-direction: column; /* Stack input and buttons vertically */
+        gap: 10px;
+    }
+
+    .message-form input {
+        margin-right: 0; /* Remove margin since it's stacked now */
+    }
+
+    .microphone-button {
+        margin-left: 0; /* Remove margin */
+    }
+
+    /* Optional: Make buttons full width for easier tapping */
+    .message-form button, .microphone-button {
+        width: 100%;
+    }
+}
+
+
